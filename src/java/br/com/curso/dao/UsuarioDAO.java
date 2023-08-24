@@ -37,6 +37,7 @@ public class UsuarioDAO {
                                 rs.getString("cpfcnpj"),
                                 rs.getString("login"),
                                 rs.getString("senha"),
+                                rs.getString("foto"),
                                 rs.getString("tipo"),
                                 rs.getInt("id"));
            }
@@ -65,6 +66,7 @@ public class UsuarioDAO {
                                     rs.getString("cpfcnpj"),
                                     rs.getString("login"),
                                     rs.getString("senha"),
+                                    rs.getString("foto"),
                                     rs.getString("tipo"),
                                     rs.getInt("id"));
              lstUsuario.add(oUsuario);

@@ -6,6 +6,7 @@
 package br.com.curso.model;
 
 import java.util.Date;
+import javax.servlet.http.HttpSession;
 /**
  *
  * @author Aluno
@@ -95,4 +96,33 @@ public class Pessoa {
     public void setFoto(String foto) {
         this.foto = foto;
     }
+    public static boolean verificaPessoa(String recurso, HttpSession sessao){
+        boolean status=false;
+        
+        try{
+            //se for um acesso liberado permiter passagem
+            if ( recurso.equalsIgnoreCase("/index.jsp") ||
+                     recurso.equalsIgnoreCase("/homeLogado.jsp") ||
+                     recurso.equalsIgnoreCase("/login.jsp") ||
+                     recurso.equalsIgnoreCase("/PessoaBuscarPorLogin") ||
+                     recurso.equalsIgnoreCase("/PessoaLogar") ||
+                     recurso.equalsIgnoreCase("/js/jquery-3.3.1.min.js") ||
+                     recurso.equalsIgnoreCase("/js/jquery.mask.min.js") ||
+                     recurso.equalsIgnoreCase("/js/jquery.maskMoney.min.js") ||
+                     recurso.equalsIgnoreCase("/js/app.js")) {
+                status = true;
+            }
+            
+            if(sessao != null && sessao.getAttributeNames().hasMoreElements()){
+                //pega dados do usuário
+                int idPessoa = Integer.parseInt(sessao.getAttribute("idpessoa").toString());
+                String fotoPessoa = sessao.getAttribute("fotopessoa").toString();
+            }
+        } catch (Exception ex){
+             System.out.println("Erro: " + ex.getMessage());
+             ex.printStackTrace();
+        }        
+        return status;
+    }
+     
 }

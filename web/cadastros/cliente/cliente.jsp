@@ -21,6 +21,7 @@
                         <th align="center">Nome</th>
                         <th align="center">CPF/CNPJ</th>
                         <th align="center">Cidade - UF</th>
+                        <th align="left">Imagem</th>
                         <th Align="center">Alterar</th>
                         <th Align="center">Excluir</th>
                     </tr>
@@ -33,11 +34,17 @@
                             <td align="center">${cliente.nome}</td>
                             <td align="center">${cliente.cpfCnpj}</td>
                        <td align="center">${cliente.cidade.nomeCidade}-${cliente.cidade.estado.siglaEstado}</td>
+                       <td aling="left">
+                            <img alt="imagem" class="img-thumbnail" 
+                                 src="${cliente.foto}" 
+                                 name="foto" id="foto" width="130" heigth="130">
+                            </td>
                             <td align="center">
                                 <a href="#modaladicionar" class="btn btn-success adicionar" data-toggle="modal" 
                                    data-id="" onclick="setDadosModal(${cliente.idCliente})">
                                     <i class="fas fa-plus fa-fw"></i> Alterar </a>
                             </td>
+                            
                             <td align="center">
                                 <a href="#" onclick="deletar(${cliente.idCliente})">
                                     <button class="btn 

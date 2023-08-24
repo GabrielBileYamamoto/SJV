@@ -1,5 +1,6 @@
 package br.com.curso.model;
 
+import br.com.curso.dao.PessoaDAO;
 import javax.servlet.http.HttpSession;
 
 public class Usuario {
@@ -9,6 +10,7 @@ public class Usuario {
     private String cpfcnpj;
     private String login;
     private String senha;
+    private String foto;
     private String tipo;
     private int id;
 
@@ -18,14 +20,23 @@ public class Usuario {
         this.tipo = "";
     }
 
-    public Usuario(int idPessoa, String nome, String cpfcnpj, String login, String senha, String tipo, int id) {
+    public Usuario(int idPessoa, String nome, String cpfcnpj, String login, String senha, String foto, String tipo, int id) {
         this.idPessoa = idPessoa;
         this.nome = nome;
         this.cpfcnpj = cpfcnpj;
         this.login = login;
         this.senha = senha;
+        this.foto = foto;
         this.tipo = tipo;
         this.id = id;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public int getIdPessoa() {
@@ -90,7 +101,7 @@ public class Usuario {
         try{
             //se for um acesso liberado permiter passagem
             if ( recurso.equalsIgnoreCase("/index.jsp") ||
-                     recurso.equalsIgnoreCase("/home.jsp") ||
+                     recurso.equalsIgnoreCase("/homeLogado.jsp") ||
                      recurso.equalsIgnoreCase("/login.jsp") ||
                      recurso.equalsIgnoreCase("/UsuarioBuscarPorLogin") ||
                      recurso.equalsIgnoreCase("/UsuarioLogar") ||
@@ -106,12 +117,13 @@ public class Usuario {
                 int idUsuario = Integer.parseInt(sessao.getAttribute("idusuario").toString());
                 String tipoUsuario = sessao.getAttribute("tipousuario").toString();
                 
+                
                 //verifica permissões
                 //se for administrador libera todos os recursos
                 if (tipoUsuario.equalsIgnoreCase("administrador")){
                     status=true;
                 } else {
-                    if (tipoUsuario.equalsIgnoreCase("Cliente"))
+                    if (tipoUsuario.equalsIgnoreCase("cliente"))
                     {
                         if (tipoUsuario.equalsIgnoreCase("/CidadeCarregar") ||
                             recurso.equalsIgnoreCase("/CidadeCarregar") ||
@@ -129,7 +141,7 @@ public class Usuario {
                         }
                     }
                     
-                    if (tipoUsuario.equalsIgnoreCase("Fornecedor"))
+                    if (tipoUsuario.equalsIgnoreCase("fornecedor"))
                     {
                         if (recurso.equalsIgnoreCase("/EstadoCadastrar") ||
                             recurso.equalsIgnoreCase("/EstadoCarregar") ||

@@ -50,7 +50,8 @@ public class UsuarioLogar extends HttpServlet {
                 HttpSession sessao = request.getSession();
                 sessao.setAttribute("idusuario", oUsuario.getId());
                 sessao.setAttribute("nomeusuario", oUsuario.getNome());
-                sessao.setAttribute("tipousuario", oUsuario.getTipo());                
+                sessao.setAttribute("tipousuario", oUsuario.getTipo());    
+                sessao.setAttribute("fotousuario", oUsuario.getFoto());
                 usuarioLogado = "ok";
             } else {
                 //usuario recusado
