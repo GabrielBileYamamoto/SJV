@@ -5,6 +5,8 @@ import br.com.curso.utils.SingleConnection;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -15,64 +17,80 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns={"/*"})
+@WebFilter(urlPatterns = {"/*"})
 public class FilterAutenticacao implements Filter {
 
     private static Connection conexao;
-    
+    private final Set<String> urlsSemAutenticacao = new HashSet<>();
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         conexao = SingleConnection.getConnection();
+        urlsSemAutenticacao.add("/index.jsp");
+        urlsSemAutenticacao.add("/homeLogado.jsp");
+        urlsSemAutenticacao.add("/footer.jsp");
+        urlsSemAutenticacao.add("/header.jsp");
+        urlsSemAutenticacao.add("/login.jsp");
+        urlsSemAutenticacao.add("/menu.jsp");
+        urlsSemAutenticacao.add("/menuAdministrador.jsp");
+        urlsSemAutenticacao.add("/menucliente.jsp");
+        urlsSemAutenticacao.add("/fornecedor.jsp");
+        // Adicione outras URLs sem autenticação aqui
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
-        throws IOException, ServletException {
-         try{
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        try {
             HttpServletRequest req = (HttpServletRequest) request;
-            //Pega a sessão vigente no contexto do servidor
-            HttpSession sessao = req.getSession(false);
-            String urlParaAutenticar = req.getServletPath(); //Url que está sendo acessada
+            String url = req.getRequestURI();
             
-            if ((sessao != null && sessao.getAttributeNames().hasMoreElements()) ||
-                    (urlParaAutenticar.equalsIgnoreCase("/index.jsp") ||
-                     urlParaAutenticar.equalsIgnoreCase("/home.jsp") ||
-                     urlParaAutenticar.equalsIgnoreCase("/login.jsp") ||
-                     urlParaAutenticar.equalsIgnoreCase("/UsuarioBuscarPorLogin") ||
-                     urlParaAutenticar.equalsIgnoreCase("/UsuarioLogar") ||
-                     urlParaAutenticar.equalsIgnoreCase("/js/jquery-3.3.1.min.js") ||
-                     urlParaAutenticar.equalsIgnoreCase("/js/jquery.mask.min.js") ||
-                     urlParaAutenticar.equalsIgnoreCase("/js/jquery.maskMoney.min.js") ||
-                     urlParaAutenticar.equalsIgnoreCase("/js/app.js"))) {
-                
-                    //valida controle de usuário
-                    if (Usuario.verificaUsuario(urlParaAutenticar, sessao)){
-                        //passou pela validação de segurança encaminha para a execução 
-                        chain.doFilter(request, response);    
-                    } else{
-                        //se a sessão for nula volta para tela sem logar
-                        request.getRequestDispatcher("/homeLogado.jsp").forward(request, response);
-                        return; //Para a execução e redireciona para o index.jsp
-                    }
-                        
-            } else {
-                //se a sessão for nula volta para tela sem logar
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
-                return; //Para a execução e redireciona para o index.jsp
+            // Verifica se a URL começa com "/css/" para permitir o acesso aos recursos CSS
+            if (url.startsWith(req.getContextPath() + "/css/")) {
+                chain.doFilter(request, response);
+                return;
             }
-        } catch(Exception e){
-            System.out.println("Erro: "+e.getMessage());
-            e.printStackTrace();
-        } 
+            // Verifica se a URL começa com "/js/" para permitir o acesso aos recursos CSS
+            if (url.startsWith(req.getContextPath() + "/js/")) {
+                chain.doFilter(request, response);
+                return;
+            }
+            // Verifica se a URL começa com "/scss/" para permitir o acesso aos recursos CSS
+            if (url.startsWith(req.getContextPath() + "/scss/")) {
+                chain.doFilter(request, response);
+                return;
+            }
+            // Verifica se a URL começa com "/vendor/" para permitir o acesso aos recursos CSS
+            if (url.startsWith(req.getContextPath() + "/vendor/")) {
+                chain.doFilter(request, response);
+                return;
+            }
+            
+            HttpSession sessao = req.getSession(false);
+            String urlParaAutenticar = req.getServletPath();
+            if (urlsSemAutenticacao.contains(urlParaAutenticar) || sessao != null) {
+                if (!Usuario.verificaUsuario(urlParaAutenticar, sessao)) {
+                    request.getRequestDispatcher("/homeLogado.jsp").forward(request, response);
+                    return;
+                }
+                chain.doFilter(request, response);
+            } else {
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
+            }
+        } catch (Exception e) {
+            // Tratamento de exceções mais robusto
+            throw new ServletException("Erro durante o filtro de autenticação.", e);
+        }
     }
 
     @Override
     public void destroy() {
         try {
-            conexao.close();
+            if (conexao != null) {
+                conexao.close();
+            }
         } catch (SQLException ex) {
-            System.out.println("Erro :" +ex.getMessage());
             ex.printStackTrace();
         }
-    }  
+    }
 }

@@ -1,0 +1,8 @@
+/* styles.css */
+
+.page-content {
+    background-image: url('https://onmotor.com.br/wp-content/uploads/2022/04/2022-05-30-lava-jato-mais-lucrativo.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 200px; /* Ajuste conforme necessário para espaçamento */
+}

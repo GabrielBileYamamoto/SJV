@@ -1,11 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.com.curso.controller.administrador;
 
 import br.com.curso.dao.AdministradorDAO;
+import br.com.curso.dao.GenericDAO;
+import br.com.curso.model.Administrador;
+import br.com.curso.model.Estado;
 import br.com.curso.model.Administrador;
 import br.com.curso.model.Cidade;
 import java.io.IOException;
@@ -23,22 +22,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "AdministradorCadastrar", urlPatterns = {"/AdministradorCadastrar"})
 public class AdministradorCadastrar extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=iso-8859-1");
         String mensagem = null;
-        try{           
-            //busca parametros do formulario (ajax) - view
-            int idPessoa = Integer.parseInt(request.getParameter("idpessoa"));
+        try{
+        int idPessoa = Integer.parseInt(request.getParameter("idpessoa"));
             int idAdministrador = Integer.parseInt(request.getParameter("idadministrador"));
             String cpfCnpjPessoa = request.getParameter("cpfcnpjpessoa");
             String nomePessoa = request.getParameter("nomepessoa");
@@ -50,28 +39,26 @@ public class AdministradorCadastrar extends HttpServlet {
             String situacao = request.getParameter("situacao");
             String fotoPessoa = request.getParameter("fotopessoa");
             
-            //cria objeto de cidade.
             Cidade oCidade = new Cidade();
             oCidade.setIdCidade(idCidade);
-            
-            //gera objeto de administrador
-            Administrador oAdministrador = new Administrador(idAdministrador, permitelogin, situacao,
+       //gera objeto de Administrador
+        Administrador oAdministrador = new Administrador(idAdministrador, permitelogin, situacao,
                     idPessoa, cpfCnpjPessoa, nomePessoa, dataNascimento, oCidade, login, senha, 
                     fotoPessoa);
-            //instancia camada dao de administrador    
-            AdministradorDAO dao = new AdministradorDAO();
-
-            if(dao.cadastrar(oAdministrador)){
-                //mensagem = "Cadastrado com Sucesso!";
-                response.getWriter().write("1");
-            }else{
-                //mensagem = "Problemas ao cadastrar Despesa!";
-                response.getWriter().write("0");
+        //instancia camada dao de cidade
+        AdministradorDAO dao = new AdministradorDAO();
+        
+        if(dao.cadastrar(oAdministrador)){
+            //mensagem ="Cadastrado com Sucesso!";
+            response.getWriter().write("1");
+        }else{
+            //mensagem ="Problemas ao cadastrar Administrador!";
+            response.getWriter().write("0");
+              }
+            } catch (Exception e) {
+                System.out.println("Problemas no servelet Cadastrar Administrador!Erro: " + e.getMessage());
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            System.out.println("Problemas no servelet Cadastrar Administrador!Erro: " + e.getMessage());
-            e.printStackTrace();
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

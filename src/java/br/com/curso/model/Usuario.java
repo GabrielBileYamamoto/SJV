@@ -135,6 +135,14 @@ public class Usuario {
                             recurso.equalsIgnoreCase("/EstadoAlterar") ||
                             recurso.equalsIgnoreCase("/EstadoListar") ||
                             recurso.equalsIgnoreCase("/EstadoNovo") ||
+                            recurso.equalsIgnoreCase("/ModeloCadastrar") ||
+                            recurso.equalsIgnoreCase("/ModeloCarregar") ||
+                            recurso.equalsIgnoreCase("/ModeloAlterar") ||
+                            recurso.equalsIgnoreCase("/ModeloListar") ||
+                            recurso.equalsIgnoreCase("/ModeloNovo") ||    
+                            recurso.equalsIgnoreCase("/VeiculoListar") ||
+                            recurso.equalsIgnoreCase("/VeiculoAlterar") ||
+                            recurso.equalsIgnoreCase("/VeiculoNovo") ||
                             recurso.equalsIgnoreCase("/UsuarioDeslogar") ||    
                             recurso.equalsIgnoreCase("/homeLogado.jsp")){
                             status=true;//permite acesso ao usuario tipo cliente

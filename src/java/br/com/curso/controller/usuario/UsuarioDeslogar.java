@@ -36,9 +36,9 @@ public class UsuarioDeslogar extends HttpServlet {
         try{
             HttpSession sessao = request.getSession(false);
             sessao.invalidate();
-            response.sendRedirect("/SJVbase/login.jsp");
+            response.sendRedirect("/SJVbase/index.jsp");
         } catch (Exception ex) {
-            System.out.println("Problemas ao logar Usuário! Erro: "+ ex.getMessage());
+            System.out.println("Problemas ao deslogar Usuário! Erro: "+ ex.getMessage());
             ex.printStackTrace();
         }
     }
