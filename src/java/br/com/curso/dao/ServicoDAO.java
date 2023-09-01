@@ -46,13 +46,13 @@ public class ServicoDAO implements GenericDAO{
     public Boolean inserir(Object objeto) {
         Servico oServico = (Servico) objeto;
         PreparedStatement stmt = null;
-        String sql = "insert into servico (descricao, valorServico, valorPago, "
-                + "datadocumento, imagemdocumento) values (?,?,?,?,?)";
+        String sql = "insert into servico (nomeservico, descricao, valorservico) values (?,?,?)";
+                
         try{
             stmt = conexao.prepareStatement(sql);
-            stmt.setString(1, oServico.getDescricao());
-            stmt.setDouble(2, oServico.getValorServico());
-            stmt.setDouble(3, oServico.getValorPago());
+            stmt.setString(1, oServico.getNomeServico());
+            stmt.setString(2, oServico.getDescricao());
+            stmt.setDouble(3, oServico.getValorServico());
             stmt.execute();
             conexao.commit();
             return true;
@@ -73,16 +73,13 @@ public class ServicoDAO implements GenericDAO{
     public Boolean alterar(Object objeto) {
        Servico oServico = (Servico) objeto;
        PreparedStatement stmt = null;
-       String sql = "update servico set descricao=?, valorServico=?, valorPago=?, "
-                + "datadocumento=?, imagemdocumento=? where idservico=?";
+       String sql = "update servico set nomeservico=?, descricao=?, valorservico=? where idservico=?";
        try {
            stmt = conexao.prepareStatement(sql);
-           stmt.setString(1, oServico.getDescricao());
-            stmt.setDouble(2, oServico.getValorServico());
-            stmt.setDouble(3, oServico.getValorPago());
-            stmt.setDate(4,new java.sql.Date(oServico.getDataDocumento().getTime()));
-            stmt.setString(5, oServico.getImagemDocumento());
-            stmt.setInt(6, oServico.getIdServico());
+           stmt.setString(1, oServico.getNomeServico());
+            stmt.setString(2, oServico.getDescricao());
+            stmt.setDouble(3, oServico.getValorServico());
+            stmt.setInt(4, oServico.getIdServico());
            stmt.execute();
            conexao.commit();
            return true;
@@ -139,11 +136,9 @@ public class ServicoDAO implements GenericDAO{
             while (rs.next()) {
                 oServico = new Servico();
                 oServico.setIdServico(rs.getInt("idServico"));
+                oServico.setNomeServico(rs.getString("nomeservico"));
                 oServico.setDescricao(rs.getString("descricao"));
                 oServico.setValorServico(rs.getDouble("valorServico"));
-                oServico.setValorPago(rs.getDouble("valorPago"));
-                oServico.setDataDocumento(rs.getDate("datadocumento"));
-                oServico.setImagemDocumento(rs.getString("imagemdocumento"));
             }
             return oServico;
         } catch (Exception ex) {
@@ -164,11 +159,9 @@ public class ServicoDAO implements GenericDAO{
             while (rs.next()){
                 Servico oServico = new Servico();
                 oServico.setIdServico(rs.getInt("idServico"));
+                oServico.setNomeServico(rs.getString("nomeservico"));
                 oServico.setDescricao(rs.getString("descricao"));
                 oServico.setValorServico(rs.getDouble("valorServico"));
-                oServico.setValorPago(rs.getDouble("valorPago"));
-                oServico.setDataDocumento(rs.getDate("datadocumento"));
-                oServico.setImagemDocumento(rs.getString("imagemdocumento"));
                 resultado.add(oServico);
             }
         }catch (SQLException ex){
@@ -192,10 +185,9 @@ public class ServicoDAO implements GenericDAO{
             while(rs.next()){
                 if (i>0) strJson+=",";
                 strJson += "{\"idServico\":"+rs.getInt("idservico")+","
+                        + "\"nomeservico\":\""+rs.getString("nomeservico")+"\","
                         + "\"descricao\":\""+rs.getString("descricao")+"\","
-                        + "\"dataDocumento\":\""+data2String(rs.getDate("datadocumento"))+"\","
-                        + "\"valorServico\":\""+valorDinheiro(rs.getDouble("valorServico"),"BR")+"\","
-                        + "\"valorPago\":\""+valorDinheiro(rs.getDouble("valorPago"),"BR")+"\"}";
+                        + "\"valorservico\":\""+valorDinheiro(rs.getDouble("valorservico"),"BR")+"\"}";
                 i++;
             }
             strJson += "]";

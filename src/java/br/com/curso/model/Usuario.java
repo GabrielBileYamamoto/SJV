@@ -103,6 +103,10 @@ public class Usuario {
             if ( recurso.equalsIgnoreCase("/index.jsp") ||
                      recurso.equalsIgnoreCase("/homeLogado.jsp") ||
                      recurso.equalsIgnoreCase("/login.jsp") ||
+                     recurso.equalsIgnoreCase("/menuLogado.jsp") ||
+                     recurso.equalsIgnoreCase("/menuAdministrador.jsp") ||
+                     recurso.equalsIgnoreCase("/menuCliente.jsp") ||
+                     recurso.equalsIgnoreCase("/menuClienteFornecedor.jsp") ||
                      recurso.equalsIgnoreCase("/UsuarioBuscarPorLogin") ||
                      recurso.equalsIgnoreCase("/UsuarioLogar") ||
                      recurso.equalsIgnoreCase("/js/jquery-3.3.1.min.js") ||

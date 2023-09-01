@@ -55,6 +55,9 @@
                         <a class="collapse-item" href="${pageContext.request.contextPath}/AdministradorListar">ADMINISTRADOR</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/ClienteListar">CLIENTE</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/FornecedorListar">FORNECEDOR</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Serviços:</h6>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/ServicoListar">SERVIÇOS</a>
                     </div>
                 </div>
             </li>
