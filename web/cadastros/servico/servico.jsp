@@ -30,10 +30,10 @@
                 <tbody>
                     <c:forEach var="servico" items="${servicos}"> 
                         <tr>
-                            <td align="right">${servico.idServico}</td>
-                             <td align="left">${servico.nomeServico}</td>
-                            <td align="left">${servico.descricao}</td>
-                            <td align="right"><fmt:formatNumber value = "${servico.valorServico}" type = "currency"/></td>
+                            <td align="center">${servico.idServico}</td>
+                             <td align="center">${servico.nomeServico}</td>
+                            <td align="center">${servico.descricao}</td>
+                            <td align="center"><fmt:formatNumber value = "${servico.valorServico}" type = "currency"/></td>
                             <td align="center">
                                 <a href="#" id="deletar" title="Excluir" onclick="deletar(${servico.idServico})">
                                     <button>Excluir</button>

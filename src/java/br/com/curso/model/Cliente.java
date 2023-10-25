@@ -9,6 +9,7 @@ import br.com.curso.utils.Conversao;
 import java.text.ParseException;
 import java.util.Date;
 
+
 /**
  *
  * @author Aluno
@@ -28,12 +29,14 @@ public class Cliente  extends Pessoa{
         this.situacao = situacao;
         this.permiteLogin = permiteLogin;
     }
+    
     public static Cliente clienteVazio() throws ParseException{
         Cidade oCidade = new Cidade();
         Date dataNascimento = Conversao.dataAtual();
         Cliente oCliente = new Cliente(0,"S","A","",0,"","",dataNascimento,oCidade,"","",null);
         return oCliente;
     }
+
 
     public int getIdCliente() {
         return idCliente;

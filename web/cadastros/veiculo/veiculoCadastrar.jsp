@@ -75,8 +75,8 @@
                         </c:forEach>
                     </select>
                   </div>
-                  <div class="form-group">
-                      <label>Modelo de Veiculo</label>
+                            <div class="form-group">
+                      <label>Modelo</label>
                     <select name="idmodelo" id="idmodelo">
                         <option value="">Selecione</option>
                         <c:forEach var="modelo" items="${modelos}">
@@ -86,6 +86,7 @@
                         </c:forEach>
                     </select>
                   </div>
+                            
                   <div class="form-group">
                       <label>Marca de Veiculo</label>
                     <select name="idmarca" id="idmarca">

@@ -35,6 +35,7 @@ public class FilterAutenticacao implements Filter {
         urlsSemAutenticacao.add("/menuAdministrador.jsp");
         urlsSemAutenticacao.add("/menucliente.jsp");
         urlsSemAutenticacao.add("/fornecedor.jsp");
+        urlsSemAutenticacao.add("/pedido.jsp");
         // Adicione outras URLs sem autenticação aqui
     }
 

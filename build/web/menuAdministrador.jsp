@@ -58,6 +58,7 @@
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Serviços:</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath}/ServicoListar">SERVIÇOS</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/PedidoListar">PEDIDO</a>
                     </div>
                 </div>
             </li>

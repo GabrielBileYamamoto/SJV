@@ -1,0 +1,9 @@
+SELECT * FROM servico
+
+SELECT SUM(valorservico) FROM servico
+
+SELECT SUM(s.valorservico) as soma from servico s inner join pedido p on s.idservico = p.idservico
+
+INSERT INTO public.pedido(
+	idpedido, nomepedido, datapedido, valortotal, pago, idcliente, idservico, idveiculo)
+	VALUES (2, 'pedido2', '02-02-2020', 35.00, 'A', 3, 3, 2);
