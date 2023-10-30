@@ -14,12 +14,16 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfFormField;
+import java.io.ByteArrayOutputStream;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "PedidoGerar", urlPatterns = {"/PedidoGerar"})
@@ -27,26 +31,23 @@ public class PedidoGerar extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String nomeUsuario = request.getParameter("usuario");
         response.setContentType("application/pdf");
         Document documento = new Document();
-        
 
         try {
             int pedidosPagos = 0;
             int pedidosNaoPagos = 0;
             int totalPedidos = 0;
 
-
-            
             PdfWriter writer = PdfWriter.getInstance(documento, response.getOutputStream());
 
             // Adicione um evento de página personalizado para a imagem de fundo
             BackgroundImageEvent backgroundImageEvent = new BackgroundImageEvent();
             writer.setPageEvent(backgroundImageEvent);
-            
+            ByteArrayOutputStream pdfBuffer = new ByteArrayOutputStream();
             documento.open();
-            
-            
+
             Paragraph titulo = new Paragraph("Relatório de Pedidos");
             titulo.setAlignment(Element.ALIGN_CENTER);
             documento.add(titulo);
@@ -91,7 +92,7 @@ public class PedidoGerar extends HttpServlet {
             float[] columnWidths = {2, 2, 2.5f, 2, 2, 2, 2}; // Por exemplo, 1 unidade para a primeira coluna e 2 unidades para as outras
             tabela.setWidths(columnWidths);
 
-              String simboloReal = "R$ ";
+            String simboloReal = "R$ ";
             for (Object obj : pedidos) {
                 if (obj instanceof Pedido) {
                     Pedido pedido = (Pedido) obj;
@@ -217,6 +218,17 @@ public class PedidoGerar extends HttpServlet {
             imagem.scaleAbsolute(200, 200);  // Ajuste o tamanho da imagem conforme necessário
             imagem.setAlignment(Element.ALIGN_CENTER); // Alinhe a imagem no centro
 
+            
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            Date dataAtual = new Date();
+            Paragraph dataGeracao = new Paragraph("Data de Emissão: " + dateFormat.format(dataAtual));
+            dataGeracao.setAlignment(Element.ALIGN_LEFT);
+            documento.add(dataGeracao);
+
+            Paragraph nomeUsuarioParagrafo = new Paragraph("Emissor: " + nomeUsuario);
+            nomeUsuarioParagrafo.setAlignment(Element.ALIGN_LEFT);
+            documento.add(nomeUsuarioParagrafo);
             documento.add(imagem);
 
             documento.close();
@@ -225,8 +237,6 @@ public class PedidoGerar extends HttpServlet {
             documento.close();
         }
     }
-    
-    
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -244,6 +254,5 @@ public class PedidoGerar extends HttpServlet {
     public String getServletInfo() {
         return "Relatório de Pedidos";
     }
-    
-    
+
 }

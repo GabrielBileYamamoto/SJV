@@ -14,10 +14,10 @@
         <strong>Novo</strong>
     </a>
         
-     <a class="btn btn-success mb-4" href="${pageContext.request.contextPath}/PedidoGerar" target="_blank">
-        <i class="fas fa-sticky-note"></i>
-        <strong>Gerar PDF</strong>
-    </a>
+     <a class="btn btn-success mb-4" href="${pageContext.request.contextPath}/PedidoGerar?usuario=${sessionScope.nomeusuario}" target="_blank">
+    <i class="fas fa-sticky-note"></i>
+    <strong>Gerar PDF</strong>
+</a>
         
  
 
