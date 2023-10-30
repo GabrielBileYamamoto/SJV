@@ -12,7 +12,7 @@ package br.com.curso.model;
 public class Marca {
     private int idMarca;
     private String nomeMarca;
-     private String imagemMarca;
+    private String imagemMarca;
 
     public Marca() {
         this.idMarca = 0;

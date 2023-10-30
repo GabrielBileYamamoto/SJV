@@ -4,6 +4,7 @@
 <jsp:include page="/header.jsp"/>
 <jsp:include page="/menuLogado.jsp"/>
 
+
 <div class="container-fluid">
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Veiculos</h1>
@@ -161,7 +162,11 @@
                 }
             });
         });
-    
+        
+    function validarPlacaCarro(placa) {
+            const regex = /^[A-Z]{3}-\d{4}$|^[A-Z]{2}-\d{5}$/;
+            return regex.test(placa);
+        }
     function validarCampos() {
         console.log("entrei na validação de campos");
         if (document.getElementById("placaveiculo").value == '') {

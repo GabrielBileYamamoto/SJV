@@ -31,8 +31,9 @@ public class TipoCadastrar extends HttpServlet {
         try{
         int idTipo = Integer.parseInt(request.getParameter("idtipo"));
         String categoria = request.getParameter("categoria");
+        String imagem = request.getParameter("imagem");
        //gera objeto de Tipo
-        Tipo oTipo = new Tipo(idTipo, categoria);
+        Tipo oTipo = new Tipo(idTipo, categoria, imagem);
         //instancia camada dao de cidade
         TipoDAO dao = new TipoDAO();
         

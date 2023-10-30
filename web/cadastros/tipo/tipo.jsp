@@ -35,6 +35,7 @@
                             <tr>
                                 <th align="left">ID</th>                    
                                 <th align="left">Categoria</th>
+                                <th align="left">Imagem</th>
                                 <th align="right"></th>
                                 <th align="right"></th>
                             </tr>
@@ -44,7 +45,11 @@
                                 <tr>
                                     <td align="left">${tipo.idTipo}</td>                    
                                     <td align="left">${tipo.categoria}</td>
-                                    
+                                    <td aling="left">
+                            <img alt="imagem" class="img-thumbnail" 
+                                 src="${tipo.imagem}" 
+                                 name="target" id="target" width="170" heigth="200">
+                            </td>
                                     <td align="center">
                                 <a href="#" id="deletar" title="Excluir" onclick="deletar(${tipo.idTipo})">
                                         <button class="btn btn-group-lg btn-danger"/>Excluir</button></a>

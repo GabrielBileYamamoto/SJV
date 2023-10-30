@@ -46,10 +46,10 @@
                                     <td align="left">${marca.idMarca}</td>                    
                                     <td align="left">${marca.nomeMarca}</td>
                                     <td aling="left">
-                            <img alt="imagem" class="img-thumbnail" 
-                                 src="${marca.imagemMarca}" 
-                                 name="target" id="target" width="170" heigth="200">
-                            </td>
+                                        <img alt="imagem" class="img-thumbnail" 
+                                             src="${marca.imagemMarca}" 
+                                             name="target" id="target" width="170" heigth="200">
+                                    </td>
                                     <td align="center">
                                 <a href="#" id="deletar" title="Excluir" onclick="deletar(${marca.idMarca})">
                                         <button class="btn btn-group-lg btn-danger"/>Excluir</button></a>

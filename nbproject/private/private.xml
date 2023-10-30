@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/GabrielBile/SJV-teste/src/java/br/com/curso/controller/pedido/PedidoCadastrar.java</file>
-            <file>file:/C:/GabrielBile/SJV-teste/src/java/br/com/curso/dao/PedidoDAO.java</file>
             <file>file:/C:/GabrielBile/SJV-teste/src/java/br/com/curso/controller/pedido/PedidoCarregar.java</file>
-            <file>file:/C:/GabrielBile/SJV-teste/src/java/br/com/curso/controller/pedido/PedidoNovo.java</file>
             <file>file:/C:/GabrielBile/SJV-teste/src/java/br/com/curso/controller/pedido/PedidoGerar.java</file>
-            <file>file:/C:/GabrielBile/SJV-teste/src/java/br/com/curso/utils/Conversao.java</file>
-            <file>file:/C:/GabrielBile/SJV-teste/src/java/br/com/curso/controller/pedido/PedidoListar.java</file>
-            <file>file:/C:/GabrielBile/SJV-teste/web/cadastros/pedido/pedido.jsp</file>
+            <file>file:/C:/GabrielBile/SJV-teste/web/cadastros/marca/marcaCadastrar.jsp</file>
+            <file>file:/C:/GabrielBile/SJV-teste/web/cadastros/tipo/tipoCadastrar.jsp</file>
+            <file>file:/C:/GabrielBile/SJV-teste/src/java/br/com/curso/utils/banco.sql</file>
         </group>
     </open-files>
 </project-private>

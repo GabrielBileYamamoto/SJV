@@ -45,10 +45,11 @@ public class TipoDAO implements GenericDAO{
     public Boolean inserir(Object objeto) {
         Tipo oTipo = (Tipo) objeto;
         PreparedStatement stmt = null;
-        String sql = "insert into tipoveiculo (categoria) values (?)";
+        String sql = "insert into tipoveiculo (categoria, imagem) values (?,?)";
         try{
             stmt = conexao.prepareStatement(sql);
             stmt.setString(1, oTipo.getCategoria());
+            stmt.setString(2, oTipo.getImagem());
             stmt.execute();
             conexao.commit();
             return true;
@@ -69,11 +70,12 @@ public class TipoDAO implements GenericDAO{
     public Boolean alterar(Object objeto) {
          Tipo oTipo = (Tipo) objeto;
        PreparedStatement stmt = null;
-       String sql = "update tipoveiculo set categoria=? where idtipo=?";
+       String sql = "update tipoveiculo set categoria=?, imagem=? where idtipo=?";
        try {
            stmt = conexao.prepareStatement(sql);
            stmt.setString(1, oTipo.getCategoria());
-           stmt.setInt(2, oTipo.getIdTipo());
+           stmt.setString(2, oTipo.getImagem());
+           stmt.setInt(3, oTipo.getIdTipo());
            stmt.execute();
            conexao.commit();
            return true;
@@ -131,6 +133,7 @@ public class TipoDAO implements GenericDAO{
                 oTipo = new Tipo();
                 oTipo.setIdTipo(rs.getInt("idTipo"));
                 oTipo.setCategoria(rs.getString("categoria"));
+                oTipo.setImagem(rs.getString("imagem"));
             }
             return oTipo;
         } catch (Exception ex) {
@@ -152,6 +155,7 @@ public class TipoDAO implements GenericDAO{
                 Tipo oTipo = new Tipo();
                 oTipo.setIdTipo (rs.getInt("idTipo"));
                 oTipo.setCategoria (rs.getString("categoria"));
+                oTipo.setImagem(rs.getString("imagem"));
                 resultado.add(oTipo);
             }
         }catch (SQLException ex){

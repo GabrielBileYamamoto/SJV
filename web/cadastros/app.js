@@ -229,6 +229,70 @@ function validarCPF(cpf) {
 	return true;   
 }
 
+// Máscara para placa de veículo (AAA-1234 ou AA-12345)
+function mascaraPlacaVeiculo(placa) {
+    // Remove caracteres especiais e números em excesso
+    placa = placa.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+    
+    if (placa.length <= 3) {
+        // Formato AAA-1234
+        placa = placa.replace(/([A-Z]{3})([0-9]{0,4})/, '$1-$2');
+    } else {
+        // Formato AA-12345
+        placa = placa.replace(/([A-Z]{2})([0-9]{0,5})/, '$1-$2');
+    }
+    
+    return placa;
+}
 
+// Evento para aplicar a máscara quando o campo ganhar foco
+$(document).ready(function () {
+    console.log('Ativando evento de foco para placa do veículo');
+    $('#placaveiculo').focus(function () {
+        var placa = $('#placaveiculo').val();
+        $('#placaveiculo').val(mascaraPlacaVeiculo(placa));
+    });
+});
 
+// Evento para remover a máscara e validar quando o campo perder foco (blur)
+$(document).ready(function () {
+    console.log('Ativando evento de blur para placa do veículo');
+    $('#placaveiculo').blur(function () {
+        var placa = $('#placaveiculo').val();
+        var placaLimpa = placa.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
 
+        if (!validarPlacaVeiculo(placaLimpa)) {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Verifique a placa do veículo!',
+                showConfirmButton: true,
+                timer: 10000
+            });
+            $('#placaveiculo').val('');
+        }
+    });
+});
+
+// Função para validar a placa do veículo
+function validarPlacaVeiculo(placa) {
+    // Expressão regular para o formato da placa (AAA-1234 ou AA-12345)
+    var regexPlaca = /^[A-Z]{3}-\d{4}$|^[A-Z]{2}-\d{5}$/;
+
+    if (regexPlaca.test(placa)) {
+        // Outras regras de validação, se necessário
+        // Por exemplo, você pode verificar se as letras são maiúsculas ou se os números estão no intervalo correto.
+
+        // Verifica se as letras são maiúsculas
+        var letras = placa.match(/[A-Z]/g).join('');
+        if (letras === letras.toUpperCase()) {
+            // Verifica se os números estão no intervalo correto
+            var numeros = placa.match(/\d/g).join('');
+            if (parseInt(numeros) >= 1000 && parseInt(numeros) <= 9999) {
+                return true; // Placa válida
+            }
+        }
+    }
+
+    return false; // Placa inválida
+}

@@ -12,15 +12,26 @@ package br.com.curso.model;
 public class Tipo {
     private int idTipo;
     private String categoria;
+    private String imagem;
 
     public Tipo() {
         this.idTipo = 0;
         this.categoria = "";
+        this.imagem = "";
     }
 
-    public Tipo(int idTipo, String categoria) {
+    public Tipo(int idTipo, String categoria, String imagem) {
         this.idTipo = idTipo;
         this.categoria = categoria;
+        this.imagem = imagem;
+    }
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 
 

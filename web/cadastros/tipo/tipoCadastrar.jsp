@@ -14,7 +14,27 @@
         <strong>Voltar</strong>
     </a>
     <div class="row">
-         
+          <!-- Imagem do Documento --> 
+        <div class="col">
+            <div class="card shadow mb-4"> 
+                <div class="card-body">
+                    <div class="form-group">
+                        <center>
+                            <img alt="imagem" class="img-thumbnail" 
+                                 src="${tipo.imagem}" 
+                                 name="target" id="target" width="170" heigth="200">
+                            <br></br>
+                            <input type="file" id="gallery-photo-add" 
+                                   class="inputfile" onchange="uploadFile();"/>
+                            <label for="gallery-photo-add" class="btn btn-success">
+                                <i class="fas fa-file-upload"></i> 
+                                Selecionar Documento...
+                            </label>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Campos de cadastramento -->        
           <div class="col-lg-9">
             <div class="card shadow mb-4">
@@ -27,7 +47,7 @@
                     <div class="form-group">
                         <label>Categoria</label>
                         <input class="form-control" type="text" name="categoria" id="categoria" 
-                               value="${tipo.categoria}" size="7" maxlength="7"/>
+                               value="${tipo.categoria}" size="30" maxlength="100"/>
                     </div>
                     <!-- Botão de Confirmação --> 
                     <div class="form-group">
@@ -119,6 +139,7 @@
             data: {
                 idtipo: $('#idtipo').val(),
                 categoria: $('#categoria').val(),
+                imagem: target
             },
             success:
                     function (data) {
@@ -154,7 +175,26 @@
                     }
         });
     }
-    
+     function uploadFile() {
+        //pega o componente html image 
+        var target = document.getElementById("target");
+        //limpa o image
+        target.src = "";
+        //abre a janela para seleção do arquivo.
+        var file = document.querySelector("input[type='file']").files[0];
+        //verifica se o arquivo existe
+        if (file) {
+            //faz a leitura do arquivo da imagem
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = function () {
+                //atribui a imagem do arquivo ao componente html image
+                target.src = reader.result;
+            };
+        } else {
+            target.src = "";
+        }
+    }
     
 </script>   
 <jsp:include page="/footer.jsp"/>
